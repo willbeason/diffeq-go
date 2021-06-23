@@ -1,9 +1,9 @@
-package solvers_test
+package order1_test
 
 import (
 	"testing"
 
-	"github.com/willbeason/diffeq-go/pkg/solvers"
+	"github.com/willbeason/diffeq-go/pkg/solvers/order1"
 )
 
 func TestRungeKutta_Euler(t *testing.T) {
@@ -11,7 +11,7 @@ func TestRungeKutta_Euler(t *testing.T) {
 
 	eq := func(t, y float64) float64 { return y }
 
-	solver := solvers.NewRungeKutta(solvers.Step(1.0, 0.0))
+	solver := order1.NewRungeKutta(order1.Step(1.0, 0.0))
 
 	tcs := []TestCase{
 		NewTestCase(0.0, 1.0, 1.0, 2.0),
@@ -47,7 +47,7 @@ func TestRungeKutta_RK4(t *testing.T) {
 		tc := tc
 		t.Run(tc.Name(), func(t *testing.T) {
 			t.Parallel()
-			err := tc.Run(solvers.RK4, eq)
+			err := tc.Run(order1.RK4, eq)
 			if err != nil {
 				t.Error(err)
 			}
@@ -70,7 +70,7 @@ func TestRungeKutta_RK38(t *testing.T) {
 		tc := tc
 		t.Run(tc.Name(), func(t *testing.T) {
 			t.Parallel()
-			err := tc.Run(solvers.RK38, eq)
+			err := tc.Run(order1.RK38, eq)
 			if err != nil {
 				t.Error(err)
 			}
@@ -92,7 +92,7 @@ func TestRungeKutta_Ralston(t *testing.T) {
 	for _, tc := range tcs {
 		t.Run(tc.Name(), func(t *testing.T) {
 			t.Parallel()
-			err := tc.Run(solvers.Ralston, eq)
+			err := tc.Run(order1.Ralston, eq)
 			if err != nil {
 				t.Error(err)
 			}

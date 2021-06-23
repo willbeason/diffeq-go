@@ -1,11 +1,11 @@
-package solvers
+package order1
 
 import (
 	"github.com/willbeason/diffeq-go/pkg/equations"
 )
 
 type Solver interface {
-	Solve(order equations.FirstOrder, t, y, h float64) float64
+	Solve(eq equations.FirstOrder, t, y, h float64) float64
 }
 
 // Solve uses Solver to determine the value of y for the provided first-order differential equation

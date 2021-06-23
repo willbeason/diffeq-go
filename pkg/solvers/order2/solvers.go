@@ -1,4 +1,4 @@
-package solvers
+package order2
 
 // RK4 is the traditional 4-step Runge-Kutta method.
 var RK4 = NewRungeKutta(

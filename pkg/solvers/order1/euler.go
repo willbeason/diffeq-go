@@ -1,4 +1,4 @@
-package solvers
+package order1
 
 import (
 	"github.com/willbeason/diffeq-go/pkg/equations"

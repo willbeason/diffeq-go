@@ -1,13 +1,10 @@
-package solvers
+package order2
 
 import (
 	"github.com/willbeason/diffeq-go/pkg/equations"
 )
 
-// RungeKutta is an explicit Runge-Kutta solver for first-order differential
-// equations.
 type RungeKutta struct {
-	// Steps are the steps of the Runge-Kutta solver, in order.
 	Steps []RungeKuttaStep
 }
 
@@ -17,25 +14,37 @@ func NewRungeKutta(steps ...RungeKuttaStep) RungeKutta {
 	return RungeKutta{Steps: steps}
 }
 
-func (rk RungeKutta) Solve(eq equations.FirstOrder, t, y, h float64) float64 {
+func (rk RungeKutta) Solve(eq equations.SecondOrder, t, y, yp, h float64) (float64, float64) {
 	k := make([]float64, len(rk.Steps))
+	yps := make([]float64, len(rk.Steps))
 
 	for i, step := range rk.Steps {
-		yi := 0.0
+		ypp := 0.0
 		for j, w := range step.Coefficients {
-			yi += w * k[j]
+			ypp += w * k[j]
 		}
 
-		yi = y + h*yi
-		k[i] = eq(t+h*step.Node, yi)
+		ypi := yp + h*ypp
+		yps[i] = ypi
+
+		yi := y + h*step.Node*(yp+ypi)/2
+		k[i] = eq(t+h*step.Node, yi, ypi)
 	}
 
-	yp := 0.0
+	ypp := 0.0
 	for i, step := range rk.Steps {
-		yp += step.Weight * k[i]
+		ypp += step.Weight * k[i]
 	}
 
-	return y + h*yp
+	ypt := 0.0
+	for i, step := range rk.Steps {
+		ypt += step.Weight * yps[i]
+	}
+
+	ypf := yp + h*ypp
+	yf := y + h*ypt
+
+	return yf, ypf
 }
 
 // RungeKuttaStep is a step in a Runge-Kutta solver.
