@@ -17,7 +17,7 @@ func Solve(s Solver, eq equations.SecondOrder, t0, y0, yp0, tf float64, n int) (
 
 	for i := 0; i < n; i++ {
 		y, yp = s.Solve(eq, t, y, yp, h)
-		t0 += h
+		t += h
 	}
 
 	return y, yp
