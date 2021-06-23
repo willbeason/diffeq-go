@@ -1,12 +1,14 @@
 package main
 
 import (
+	"fmt"
 	"image"
 	"image/color"
 	"image/png"
 	"math"
 	"os"
 	"sync"
+	"time"
 
 	"github.com/willbeason/diffeq-go/pkg/equations"
 	"github.com/willbeason/diffeq-go/pkg/models"
@@ -68,11 +70,11 @@ func main() {
 		Delta:     0.02,
 		Alpha:     1.0,
 		Beta:      5.0,
-		Gamma:     12.0,
+		Gamma:     15.0,
 		Frequency: 0.5,
 	}
 
-	results := make(chan int, 100)
+	results := make(chan int, 1000)
 
 	wg := sync.WaitGroup{}
 	nWorkers := 8
@@ -82,7 +84,7 @@ func main() {
 		y0 := float64(i)/10.0
 		yp0 := 0.0
 		go func() {
-			for n := 0; n < 1000; n++ {
+			for n := 0; n < 72000; n++ {
 				y0, yp0 = work(spring.Acceleration, order2.RK4, 0.0, y0, yp0, 4*math.Pi, 1000, results)
 			}
 			wg.Done()
@@ -109,12 +111,13 @@ func main() {
 			maxCount = c
 		}
 	}
+	fmt.Println(maxCount)
 	for i, c := range counts {
 		y := math.MaxUint16 * c / (maxCount + 1)
 		img.Set(i % Width, i / Width, color.Gray16{Y: uint16(y)})
 	}
 
-	out, err := os.Create("out.png")
+	out, err := os.Create(fmt.Sprintf("out-%d.png", time.Now().Unix()))
 	if err != nil {
 		panic(err)
 	}
