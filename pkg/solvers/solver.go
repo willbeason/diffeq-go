@@ -1,4 +1,4 @@
-package estimators
+package solvers
 
 import (
 	"github.com/willbeason/diffeq-go/pkg/equations"
@@ -15,6 +15,7 @@ func Solve(s Solver, eq equations.FirstOrder, t0, y0, tf float64, n int) float64
 
 	t := t0
 	y := y0
+
 	for i := 0; i < n; i++ {
 		y = s.Solve(eq, t, y, h)
 		t0 += h

@@ -1,4 +1,4 @@
-package estimators
+package solvers
 
 import (
 	"github.com/willbeason/diffeq-go/pkg/equations"
@@ -25,6 +25,7 @@ func (rk RungeKutta) Solve(eq equations.FirstOrder, t, y, h float64) float64 {
 		for j, w := range step.Coefficients {
 			yi += w * k[j]
 		}
+
 		yi = y + h*yi
 		k[i] = eq(t+h*step.Node, yi)
 	}
