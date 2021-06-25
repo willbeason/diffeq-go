@@ -36,12 +36,12 @@ func (rk RungeKutta) Solve(eq equations.SecondOrder, t, y, yp, h float64) (float
 		ypp += step.Weight * k[i]
 	}
 
+	ypf := yp + h*ypp
+
 	ypt := 0.0
 	for i, step := range rk.Steps {
 		ypt += step.Weight * yps[i]
 	}
-
-	ypf := yp + h*ypp
 	yf := y + h*ypt
 
 	return yf, ypf
