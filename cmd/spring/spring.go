@@ -17,8 +17,8 @@ import (
 )
 
 const (
-	Width  = 2560*2
-	Height = 1440*2
+	Width  = 2560
+	Height = 1440
 
 	MinX = -0.5
 	MaxX = 2.5
@@ -27,8 +27,8 @@ const (
 )
 
 var (
-	minY = 100.0
-	maxY = -100.0
+	minY  = 100.0
+	maxY  = -100.0
 	minYP = 100.0
 	maxYP = -100.0
 )
@@ -88,9 +88,10 @@ func main() {
 		Delta:     0.02,
 		Alpha:     1.0,
 		Beta:      5.0,
-		Gamma:     12.0,
+		Gamma:     12.061735,
 		Frequency: 0.5,
 	}
+	fmt.Println(spring.Gamma)
 
 	results := make(chan int, 1000)
 
@@ -109,7 +110,7 @@ func main() {
 		y0 := startYs[i]
 		yp0 := startYPs[i]
 		go func() {
-			for n := 0; n < 72000; n++ {
+			for n := 0; n < 30; n++ {
 				y0, yp0 = work(spring.Acceleration, order2.RK4, 0.0, y0, yp0, 2*math.Pi/spring.Frequency, 1000, results)
 			}
 			wg.Done()
@@ -143,7 +144,7 @@ func main() {
 		if y > math.MaxUint16 {
 			y = math.MaxUint16
 		}
-		img.Set(i % Width, i / Width, color.Gray16{Y: uint16(y)})
+		img.Set(i%Width, i/Width, color.Gray16{Y: uint16(y)})
 	}
 
 	out, err := os.Create(fmt.Sprintf("out-%d.png", time.Now().Unix()))

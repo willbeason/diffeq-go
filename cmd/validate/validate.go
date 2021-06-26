@@ -13,13 +13,13 @@ func main() {
 	s := order2.RK4
 
 	var eq equations.SecondOrder = func(t, y, yp float64) float64 {
-		return (y + yp)/2
+		return (y + yp) / 2
 	}
 
 	for _, i := range []int{1, 10, 100, 1000} {
 		yf, ypf := order2.Solve(s, eq, 0.0, 1.0, 1.0, 1.0, i)
-		fmt.Println("dy", yf - math.E)
-		fmt.Println("dy'", ypf - math.E)
+		fmt.Println("dy", yf-math.E)
+		fmt.Println("dy'", ypf-math.E)
 		fmt.Println()
 	}
 
@@ -34,7 +34,7 @@ func main() {
 
 	for _, i := range []int{1, 10, 100, 1000} {
 		yf := order1.Solve(s1, eq1, 0.0, 1.0, 1.0, i)
-		fmt.Println("dy", yf - math.E)
+		fmt.Println("dy", yf-math.E)
 		fmt.Println()
 	}
 }

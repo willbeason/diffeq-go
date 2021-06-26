@@ -18,7 +18,12 @@ func (rk RungeKutta) Solve(eq equations.SecondOrder, t, y, yp, h float64) (float
 	k := make([]float64, len(rk.Steps))
 	yps := make([]float64, len(rk.Steps))
 
-	for i, step := range rk.Steps {
+	k[0] = eq(t, y, yp)
+	yps[0] = yp
+
+	for i := 1; i < len(rk.Steps); i++ {
+		step := rk.Steps[i]
+
 		ypp := 0.0
 		for j, w := range step.Coefficients {
 			ypp += w * k[j]
@@ -27,7 +32,7 @@ func (rk RungeKutta) Solve(eq equations.SecondOrder, t, y, yp, h float64) (float
 		ypi := yp + h*ypp
 		yps[i] = ypi
 
-		yi := y + h*step.Node*(yp+ypi)/2
+		yi := y + step.Node*(h/6.0)*(h*step.Node*k[0]+4*yp+2*ypi)
 		k[i] = eq(t+h*step.Node, yi, ypi)
 	}
 

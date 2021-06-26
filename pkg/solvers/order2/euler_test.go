@@ -11,7 +11,7 @@ import (
 
 type TestCase struct {
 	t0, y0, yp0, h float64
-	wantY, wantYP float64
+	wantY, wantYP  float64
 }
 
 func (tc TestCase) Name() string {
