@@ -19,9 +19,6 @@ func NewRungeKuttaSolver(rk RungeKutta) *RungeKuttaSolver {
 }
 
 func (rks *RungeKuttaSolver) Solve(eq equations.SecondOrder, t, y, yp, h float64) (float64, float64) {
-	rks.k[0] = eq(t, y, yp)
-	rks.yps[0] = yp
-
 	for i, step := range rks.rk.Steps {
 		ypp := 0.0
 		for j, w := range step.Coefficients {
