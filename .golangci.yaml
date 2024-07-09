@@ -37,7 +37,7 @@ linters:
     - intrange
     - ireturn
     - lll
-    #    - maintidx
+    - maintidx
     - makezero
     - mirror
     - misspell
@@ -64,4 +64,4 @@ linters:
     #    - varnamelen
     - wastedassign
     - whitespace
-#    - wrapcheck
+    - wrapcheck
