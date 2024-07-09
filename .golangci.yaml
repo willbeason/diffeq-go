@@ -7,17 +7,17 @@ linters:
     - canonicalheader
     - containedctx
     - copyloopvar
-    #    - cyclop
+    - cyclop
     - decorder
     - dogsled
     - dupl
     - durationcheck
-    #    - err113
+    - err113
     - errchkjson
     - errname
-    #    - errorlint
-    #    - exhaustive
-    #    - exhaustruct
+    - errorlint
+    - exhaustive
+    - exhaustruct
     - exportloopref
     - fatcontext
     - gci
@@ -25,18 +25,18 @@ linters:
     #    - gochecknoglobals
     - gochecknoinits
     - gochecksumtype
-    #    - gocognit
+    - gocognit
     - goconst
-    #    - gocritic
-    #    - gocyclo
+    - gocritic
+    - gocyclo
     - godot
     - godox
     - gofumpt
     - inamedparam
     - interfacebloat
     - intrange
-    #    - ireturn
-    #    - lll
+    - ireturn
+    - lll
     #    - maintidx
     - makezero
     - mirror
@@ -46,17 +46,17 @@ linters:
     - nestif
     - nilerr
     - nilnil
-    #    - nolintlint
-    #    - nonamedreturns
-    #    - paralleltest
+    - nolintlint
+    - nonamedreturns
+    - paralleltest
     - perfsprint
     - prealloc
     - predeclared
-    #    - protogetter
+    - protogetter
     - reassign
     - tenv
     - testableexamples
-    #    - testpackage
+    - testpackage
     - thelper
     - unconvert
     - unparam

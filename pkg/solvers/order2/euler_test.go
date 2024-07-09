@@ -1,4 +1,4 @@
-package order2
+package order2_test
 
 import (
 	"errors"
@@ -7,6 +7,7 @@ import (
 	"testing"
 
 	"github.com/willbeason/diffeq-go/pkg/equations"
+	"github.com/willbeason/diffeq-go/pkg/solvers/order2"
 )
 
 type TestCase struct {
@@ -24,7 +25,7 @@ func NewTestCase(t0, y0, yp0, h, wantY, wantYP float64) TestCase {
 
 var ErrSolverFail = errors.New("solver returned unexpected result")
 
-func (tc TestCase) Run(solver Solver, eq equations.SecondOrder) error {
+func (tc TestCase) Run(solver order2.Solver, eq equations.SecondOrder) error {
 	gotY, gotYP := solver.Solve(eq, tc.t0, tc.y0, tc.yp0, tc.h)
 
 	if math.Abs(gotY-tc.wantY) > 0.001 {
@@ -51,7 +52,7 @@ func TestEuler_Solve(t *testing.T) {
 	for _, tc := range tcs {
 		t.Run(tc.Name(), func(t *testing.T) {
 			t.Parallel()
-			err := tc.Run(Euler{}, eq)
+			err := tc.Run(order2.Euler{}, eq)
 			if err != nil {
 				t.Error(err)
 			}

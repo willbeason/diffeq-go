@@ -1,9 +1,10 @@
-package order1
+package order1_test
 
 import (
 	"testing"
 
 	"github.com/willbeason/diffeq-go/pkg/equations"
+	"github.com/willbeason/diffeq-go/pkg/solvers/order1"
 )
 
 func BenchmarkRungeKutta_Solve(b *testing.B) {
@@ -12,6 +13,6 @@ func BenchmarkRungeKutta_Solve(b *testing.B) {
 	}
 
 	for i := 0; i < b.N; i++ {
-		Solve(RK4, eq, 0.0, 1.0, 1.0, 100)
+		order1.Solve(order1.RK4, eq, 0.0, 1.0, 1.0, 100)
 	}
 }

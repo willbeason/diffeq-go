@@ -58,7 +58,13 @@ func toPixel(y, yp float64) int {
 	return int(py)*Width + int(px)
 }
 
-func work(eq equations.SecondOrder, solver order2.Solver, t0, y0, yp0, h float64, n int, out chan int) (float64, float64) {
+func work(
+	eq equations.SecondOrder,
+	solver order2.Solver,
+	t0, y0, yp0, h float64,
+	n int,
+	out chan int,
+) (float64, float64) {
 	t := t0
 	y := y0
 	yp := yp0

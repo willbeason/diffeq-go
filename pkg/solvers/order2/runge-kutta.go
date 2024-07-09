@@ -8,7 +8,7 @@ type RungeKutta struct {
 	Steps []RungeKuttaStep
 }
 
-var _ Solver = RungeKutta{}
+var _ Solver = (*RungeKutta)(nil)
 
 func NewRungeKutta(steps ...RungeKuttaStep) RungeKutta {
 	return RungeKutta{Steps: steps}
