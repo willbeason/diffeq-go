@@ -22,7 +22,7 @@ linters:
     - fatcontext
     - gci
     - gocheckcompilerdirectives
-    #    - gochecknoglobals
+    - gochecknoglobals
     - gochecknoinits
     - gochecksumtype
     - gocognit

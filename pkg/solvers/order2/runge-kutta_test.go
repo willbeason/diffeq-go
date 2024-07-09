@@ -47,7 +47,8 @@ func TestRungeKutta_RK4(t *testing.T) {
 	for _, tc := range tcs {
 		t.Run(tc.Name(), func(t *testing.T) {
 			t.Parallel()
-			err := tc.Run(order2.RK4, eq)
+			rk4 := order2.RK4()
+			err := tc.Run(rk4, eq)
 			if err != nil {
 				t.Error(err)
 			}
@@ -74,7 +75,8 @@ func TestRungeKutta_RK4_Sine(t *testing.T) {
 	for _, tc := range tcs {
 		t.Run(tc.Name(), func(t *testing.T) {
 			t.Parallel()
-			err := tc.Run(order2.RK4, eq)
+			rk4 := order2.RK4()
+			err := tc.Run(rk4, eq)
 			if err != nil {
 				t.Error(err)
 			}
@@ -96,7 +98,8 @@ func TestRungeKutta_RK38(t *testing.T) {
 	for _, tc := range tcs {
 		t.Run(tc.Name(), func(t *testing.T) {
 			t.Parallel()
-			err := tc.Run(order2.RK38, eq)
+			rk38 := order2.RK38()
+			err := tc.Run(rk38, eq)
 			if err != nil {
 				t.Error(err)
 			}
@@ -118,7 +121,8 @@ func TestRungeKutta_Ralston(t *testing.T) {
 	for _, tc := range tcs {
 		t.Run(tc.Name(), func(t *testing.T) {
 			t.Parallel()
-			err := tc.Run(order2.Ralston, eq)
+			ralston := order2.Ralston()
+			err := tc.Run(ralston, eq)
 			if err != nil {
 				t.Error(err)
 			}
@@ -144,7 +148,8 @@ func TestRungeKutta_Solve(t *testing.T) {
 		t.Run(strconv.Itoa(tc.n), func(t *testing.T) {
 			t.Parallel()
 
-			got, _ := order2.Solve(order2.RK4, eq, 0.0, 1.0, 1.0, 1.0, tc.n)
+			rk4 := order2.RK4()
+			got, _ := order2.Solve(rk4, eq, 0.0, 1.0, 1.0, 1.0, tc.n)
 			if diff := cmp.Diff(tc.wantDiff, math.Abs(math.E-got), cmpopts.EquateApprox(0.001, 0.0)); diff != "" {
 				t.Error("y:", diff)
 			}
@@ -172,13 +177,14 @@ func TestRungeKutta_Solve_Sine(t *testing.T) {
 			t.Parallel()
 
 			// Sine
-			got, _ := order2.Solve(order2.RK4, eq, 0.0, 0.0, 1.0, math.Pi/2, tc.n)
+			rk4 := order2.RK4()
+			got, _ := order2.Solve(rk4, eq, 0.0, 0.0, 1.0, math.Pi/2, tc.n)
 			if diff := cmp.Diff(tc.wantDiffSine, math.Abs(1.0-got), cmpopts.EquateApprox(0.001, 0.0)); diff != "" {
 				t.Error("y:", diff)
 			}
 
 			// Cosine
-			got, _ = order2.Solve(order2.RK4, eq, 0.0, 1.0, 0.0, math.Pi/2, tc.n)
+			got, _ = order2.Solve(rk4, eq, 0.0, 1.0, 0.0, math.Pi/2, tc.n)
 			if diff := cmp.Diff(tc.wantDiffCosine, math.Abs(got), cmpopts.EquateApprox(0.001, 0.0)); diff != "" {
 				t.Error("y:", diff)
 			}

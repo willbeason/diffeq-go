@@ -45,7 +45,8 @@ func TestRungeKutta_RK4(t *testing.T) {
 	for _, tc := range tcs {
 		t.Run(tc.Name(), func(t *testing.T) {
 			t.Parallel()
-			err := tc.Run(order1.RK4, eq)
+			rk4 := order1.RK4()
+			err := tc.Run(rk4, eq)
 			if err != nil {
 				t.Error(err)
 			}
@@ -67,7 +68,8 @@ func TestRungeKutta_RK38(t *testing.T) {
 	for _, tc := range tcs {
 		t.Run(tc.Name(), func(t *testing.T) {
 			t.Parallel()
-			err := tc.Run(order1.RK38, eq)
+			rk38 := order1.RK38()
+			err := tc.Run(rk38, eq)
 			if err != nil {
 				t.Error(err)
 			}
@@ -89,7 +91,8 @@ func TestRungeKutta_Ralston(t *testing.T) {
 	for _, tc := range tcs {
 		t.Run(tc.Name(), func(t *testing.T) {
 			t.Parallel()
-			err := tc.Run(order1.Ralston, eq)
+			ralston := order1.Ralston()
+			err := tc.Run(ralston, eq)
 			if err != nil {
 				t.Error(err)
 			}

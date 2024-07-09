@@ -26,32 +26,7 @@ const (
 	MaxY = 4.0
 )
 
-var (
-	minY  = 100.0
-	maxY  = -100.0
-	minYP = 100.0
-	maxYP = -100.0
-)
-
 func toPixel(y, yp float64) int {
-	// if y > MaxX {
-	// 	panic(y)
-	// }
-	// if y < MinX {
-	// 	panic(y)
-	// }
-	// if yp > MaxY {
-	// 	panic(yp)
-	// }
-	// if yp < MinY {
-	// 	panic(yp)
-	// }
-
-	// minY = math.Min(y, minY)
-	// maxY = math.Max(y, maxY)
-	// minYP = math.Min(yp, minYP)
-	// maxYP = math.Max(yp, maxYP)
-
 	px := (y - MinX) * float64(Width) / (MaxX - MinX)
 	py := (yp - MinY) * float64(Height) / (MaxY - MinY)
 
@@ -109,15 +84,17 @@ func main() {
 	startYPs := make([]float64, nWorkers)
 	for i := range nWorkers {
 		y0 := rand.Float64() - 0.5
-		startYs[i], startYPs[i] = work(spring.Acceleration, order2.RK4, 0.0, y0, 0.0, 2*math.Pi/spring.Frequency, 1000, nil)
+		rk4 := order2.RK4()
+		startYs[i], startYPs[i] = work(spring.Acceleration, rk4, 0.0, y0, 0.0, 2*math.Pi/spring.Frequency, 1000, nil)
 	}
 
 	for i := range nWorkers {
 		y0 := startYs[i]
 		yp0 := startYPs[i]
 		go func() {
+			rk4 := order2.RK4()
 			for range 30 {
-				y0, yp0 = work(spring.Acceleration, order2.RK4, 0.0, y0, yp0, 2*math.Pi/spring.Frequency, 1000, results)
+				y0, yp0 = work(spring.Acceleration, rk4, 0.0, y0, yp0, 2*math.Pi/spring.Frequency, 1000, results)
 			}
 			wg.Done()
 		}()
@@ -144,7 +121,6 @@ func main() {
 		}
 	}
 	fmt.Println(maxCount)
-	fmt.Println(minY, maxY, minYP, maxYP)
 	for i, c := range counts {
 		y := math.MaxUint16 * c * 4 / (maxCount + 1)
 		if y > math.MaxUint16 {
