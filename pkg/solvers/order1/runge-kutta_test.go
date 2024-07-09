@@ -11,8 +11,6 @@ func TestRungeKutta_Euler(t *testing.T) {
 
 	eq := func(t, y float64) float64 { return y }
 
-	solver := order1.NewRungeKutta(order1.Step(1.0, 0.0))
-
 	tcs := []TestCase{
 		NewTestCase(0.0, 1.0, 1.0, 2.0),
 		NewTestCase(0.0, 1.0, 0.5, 1.5),
@@ -23,6 +21,7 @@ func TestRungeKutta_Euler(t *testing.T) {
 		t.Run(tc.Name(), func(t *testing.T) {
 			t.Parallel()
 
+			solver := order1.NewRungeKuttaSolver(order1.NewRungeKutta(order1.Step(1.0, 0.0)))
 			err := tc.Run(solver, eq)
 			if err != nil {
 				t.Error(err)
@@ -45,7 +44,7 @@ func TestRungeKutta_RK4(t *testing.T) {
 	for _, tc := range tcs {
 		t.Run(tc.Name(), func(t *testing.T) {
 			t.Parallel()
-			rk4 := order1.RK4()
+			rk4 := order1.NewRungeKuttaSolver(order1.RK4())
 			err := tc.Run(rk4, eq)
 			if err != nil {
 				t.Error(err)
@@ -68,7 +67,7 @@ func TestRungeKutta_RK38(t *testing.T) {
 	for _, tc := range tcs {
 		t.Run(tc.Name(), func(t *testing.T) {
 			t.Parallel()
-			rk38 := order1.RK38()
+			rk38 := order1.NewRungeKuttaSolver(order1.RK38())
 			err := tc.Run(rk38, eq)
 			if err != nil {
 				t.Error(err)
@@ -91,7 +90,7 @@ func TestRungeKutta_Ralston(t *testing.T) {
 	for _, tc := range tcs {
 		t.Run(tc.Name(), func(t *testing.T) {
 			t.Parallel()
-			ralston := order1.Ralston()
+			ralston := order1.NewRungeKuttaSolver(order1.Ralston())
 			err := tc.Run(ralston, eq)
 			if err != nil {
 				t.Error(err)

@@ -23,7 +23,7 @@ func main() {
 		fmt.Println()
 	}
 
-	order1rk4 := order1.RK4()
+	order1rk4 := order1.NewRungeKuttaSolver(order1.RK4())
 
 	var eq1 equations.FirstOrder = func(t, y float64) float64 {
 		return y

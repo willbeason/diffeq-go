@@ -1,9 +1,5 @@
 package order1
 
-import (
-	"github.com/willbeason/diffeq-go/pkg/equations"
-)
-
 // RungeKutta is an explicit Runge-Kutta solver for first-order differential
 // equations.
 type RungeKutta struct {
@@ -11,31 +7,8 @@ type RungeKutta struct {
 	Steps []RungeKuttaStep
 }
 
-var _ Solver = (*RungeKutta)(nil)
-
 func NewRungeKutta(steps ...RungeKuttaStep) RungeKutta {
 	return RungeKutta{Steps: steps}
-}
-
-func (rk RungeKutta) Solve(eq equations.FirstOrder, t, y, h float64) float64 {
-	k := make([]float64, len(rk.Steps))
-
-	for i, step := range rk.Steps {
-		ypi := 0.0
-		for j, w := range step.Coefficients {
-			ypi += w * k[j]
-		}
-
-		yi := y + h*ypi
-		k[i] = eq(t+h*step.Node, yi)
-	}
-
-	yp := 0.0
-	for i, step := range rk.Steps {
-		yp += step.Weight * k[i]
-	}
-
-	return y + h*yp
 }
 
 // RungeKuttaStep is a step in a Runge-Kutta solver.
