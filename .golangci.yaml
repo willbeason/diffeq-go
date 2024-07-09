@@ -41,7 +41,6 @@ linters:
     - makezero
     - mirror
     - misspell
-    #    - mnd
     - nakedret
     - nestif
     - nilerr
