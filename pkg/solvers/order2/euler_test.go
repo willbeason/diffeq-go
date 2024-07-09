@@ -49,7 +49,6 @@ func TestEuler_Solve(t *testing.T) {
 	}
 
 	for _, tc := range tcs {
-		tc := tc
 		t.Run(tc.Name(), func(t *testing.T) {
 			t.Parallel()
 			err := tc.Run(Euler{}, eq)

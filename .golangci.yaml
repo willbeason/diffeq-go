@@ -1,11 +1,67 @@
 linters:
-  enable-all: true
-  disable:
-    - exhaustivestruct
-    - gochecknoglobals
-    - golint
-    - gomnd
-    - interfacer
-    - maligned
-    - paralleltest
-    - scopelint
+  enable:
+    - asasalint
+    - asciicheck
+    - bidichk
+    - bodyclose
+    - canonicalheader
+    - containedctx
+    - copyloopvar
+    #    - cyclop
+    - decorder
+    - dogsled
+    - dupl
+    - durationcheck
+    #    - err113
+    - errchkjson
+    - errname
+    #    - errorlint
+    #    - exhaustive
+    #    - exhaustruct
+    - exportloopref
+    - fatcontext
+    - gci
+    - gocheckcompilerdirectives
+    #    - gochecknoglobals
+    - gochecknoinits
+    - gochecksumtype
+    #    - gocognit
+    - goconst
+    #    - gocritic
+    #    - gocyclo
+    - godot
+    - godox
+    - gofumpt
+    - inamedparam
+    - interfacebloat
+    - intrange
+    #    - ireturn
+    #    - lll
+    #    - maintidx
+    - makezero
+    - mirror
+    - misspell
+    #    - mnd
+    - nakedret
+    - nestif
+    - nilerr
+    - nilnil
+    #    - nolintlint
+    #    - nonamedreturns
+    #    - paralleltest
+    - perfsprint
+    - prealloc
+    - predeclared
+    #    - protogetter
+    - reassign
+    - tenv
+    - testableexamples
+    #    - testpackage
+    - thelper
+    - unconvert
+    - unparam
+    - usestdlibvars
+    #    - varnamelen
+    - wastedassign
+    - whitespace
+#    - wrapcheck

@@ -20,7 +20,6 @@ func TestRungeKutta_Euler(t *testing.T) {
 	}
 
 	for _, tc := range tcs {
-		tc := tc
 		t.Run(tc.Name(), func(t *testing.T) {
 			t.Parallel()
 
@@ -44,7 +43,6 @@ func TestRungeKutta_RK4(t *testing.T) {
 	}
 
 	for _, tc := range tcs {
-		tc := tc
 		t.Run(tc.Name(), func(t *testing.T) {
 			t.Parallel()
 			err := tc.Run(order1.RK4, eq)
@@ -67,7 +65,6 @@ func TestRungeKutta_RK38(t *testing.T) {
 	}
 
 	for _, tc := range tcs {
-		tc := tc
 		t.Run(tc.Name(), func(t *testing.T) {
 			t.Parallel()
 			err := tc.Run(order1.RK38, eq)

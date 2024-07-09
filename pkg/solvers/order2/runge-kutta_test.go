@@ -1,8 +1,8 @@
 package order2
 
 import (
-	"fmt"
 	"math"
+	"strconv"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
@@ -22,7 +22,6 @@ func TestRungeKutta_Euler(t *testing.T) {
 	}
 
 	for _, tc := range tcs {
-		tc := tc
 		t.Run(tc.Name(), func(t *testing.T) {
 			t.Parallel()
 			err := tc.Run(Euler{}, eq)
@@ -45,7 +44,6 @@ func TestRungeKutta_RK4(t *testing.T) {
 	}
 
 	for _, tc := range tcs {
-		tc := tc
 		t.Run(tc.Name(), func(t *testing.T) {
 			t.Parallel()
 			err := tc.Run(RK4, eq)
@@ -73,7 +71,6 @@ func TestRungeKutta_RK4_Sine(t *testing.T) {
 	}
 
 	for _, tc := range tcs {
-		tc := tc
 		t.Run(tc.Name(), func(t *testing.T) {
 			t.Parallel()
 			err := tc.Run(RK4, eq)
@@ -96,7 +93,6 @@ func TestRungeKutta_RK38(t *testing.T) {
 	}
 
 	for _, tc := range tcs {
-		tc := tc
 		t.Run(tc.Name(), func(t *testing.T) {
 			t.Parallel()
 			err := tc.Run(RK38, eq)
@@ -119,7 +115,6 @@ func TestRungeKutta_Ralston(t *testing.T) {
 	}
 
 	for _, tc := range tcs {
-		tc := tc
 		t.Run(tc.Name(), func(t *testing.T) {
 			t.Parallel()
 			err := tc.Run(Ralston, eq)
@@ -145,8 +140,7 @@ func TestRungeKutta_Solve(t *testing.T) {
 	}
 
 	for _, tc := range tcs {
-		tc := tc
-		t.Run(fmt.Sprintf("%d", tc.n), func(t *testing.T) {
+		t.Run(strconv.Itoa(tc.n), func(t *testing.T) {
 			t.Parallel()
 
 			got, _ := Solve(RK4, eq, 0.0, 1.0, 1.0, 1.0, tc.n)
@@ -173,8 +167,7 @@ func TestRungeKutta_Solve_Sine(t *testing.T) {
 	}
 
 	for _, tc := range tcs {
-		tc := tc
-		t.Run(fmt.Sprintf("%d", tc.n), func(t *testing.T) {
+		t.Run(strconv.Itoa(tc.n), func(t *testing.T) {
 			t.Parallel()
 
 			// Sine

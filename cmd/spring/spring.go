@@ -63,7 +63,7 @@ func work(eq equations.SecondOrder, solver order2.Solver, t0, y0, yp0, h float64
 	y := y0
 	yp := yp0
 
-	for i := 0; i < n; i++ {
+	for range n {
 		y, yp = order2.Solve(solver, eq, t, y, yp, t+h, 1000)
 		t += h
 
@@ -101,16 +101,16 @@ func main() {
 
 	startYs := make([]float64, nWorkers)
 	startYPs := make([]float64, nWorkers)
-	for i := 0; i < nWorkers; i++ {
+	for i := range nWorkers {
 		y0 := rand.Float64() - 0.5
 		startYs[i], startYPs[i] = work(spring.Acceleration, order2.RK4, 0.0, y0, 0.0, 2*math.Pi/spring.Frequency, 1000, nil)
 	}
 
-	for i := 0; i < nWorkers; i++ {
+	for i := range nWorkers {
 		y0 := startYs[i]
 		yp0 := startYPs[i]
 		go func() {
-			for n := 0; n < 30; n++ {
+			for range 30 {
 				y0, yp0 = work(spring.Acceleration, order2.RK4, 0.0, y0, yp0, 2*math.Pi/spring.Frequency, 1000, results)
 			}
 			wg.Done()

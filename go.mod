@@ -1,5 +1,5 @@
 module github.com/willbeason/diffeq-go
 
-go 1.16
+go 1.22
 
 require github.com/google/go-cmp v0.5.6 // indirect
