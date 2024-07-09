@@ -1,55 +1,11 @@
 package order2
 
-import (
-	"github.com/willbeason/diffeq-go/pkg/equations"
-)
-
 type RungeKutta struct {
 	Steps []RungeKuttaStep
 }
 
-var _ Solver = (*RungeKutta)(nil)
-
 func NewRungeKutta(steps ...RungeKuttaStep) RungeKutta {
 	return RungeKutta{Steps: steps}
-}
-
-func (rk RungeKutta) Solve(eq equations.SecondOrder, t, y, yp, h float64) (float64, float64) {
-	k := make([]float64, len(rk.Steps))
-	yps := make([]float64, len(rk.Steps))
-
-	k[0] = eq(t, y, yp)
-	yps[0] = yp
-
-	for i := 1; i < len(rk.Steps); i++ {
-		step := rk.Steps[i]
-
-		ypp := 0.0
-		for j, w := range step.Coefficients {
-			ypp += w * k[j]
-		}
-
-		ypi := yp + h*ypp
-		yps[i] = ypi
-
-		yi := y + step.Node*(h/6.0)*(h*step.Node*k[0]+4*yp+2*ypi)
-		k[i] = eq(t+h*step.Node, yi, ypi)
-	}
-
-	ypp := 0.0
-	for i, step := range rk.Steps {
-		ypp += step.Weight * k[i]
-	}
-
-	ypf := yp + h*ypp
-
-	ypt := 0.0
-	for i, step := range rk.Steps {
-		ypt += step.Weight * yps[i]
-	}
-	yf := y + h*ypt
-
-	return yf, ypf
 }
 
 // RungeKuttaStep is a step in a Runge-Kutta solver.

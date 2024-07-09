@@ -84,7 +84,7 @@ func main() {
 	startYPs := make([]float64, nWorkers)
 	for i := range nWorkers {
 		y0 := rand.Float64() - 0.5
-		rk4 := order2.RK4()
+		rk4 := order2.NewRungeKuttaSolver(order2.RK4())
 		startYs[i], startYPs[i] = work(spring.Acceleration, rk4, 0.0, y0, 0.0, 2*math.Pi/spring.Frequency, 1000, nil)
 	}
 
@@ -92,7 +92,7 @@ func main() {
 		y0 := startYs[i]
 		yp0 := startYPs[i]
 		go func() {
-			rk4 := order2.RK4()
+			rk4 := order2.NewRungeKuttaSolver(order2.RK4())
 			for range 30 {
 				y0, yp0 = work(spring.Acceleration, rk4, 0.0, y0, yp0, 2*math.Pi/spring.Frequency, 1000, results)
 			}

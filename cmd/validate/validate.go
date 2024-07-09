@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	order2rk4 := order2.RK4()
+	order2rk4 := order2.NewRungeKuttaSolver(order2.RK4())
 
 	var eq equations.SecondOrder = func(t, y, yp float64) float64 {
 		return (y + yp) / 2

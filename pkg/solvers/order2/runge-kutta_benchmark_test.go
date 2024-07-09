@@ -12,8 +12,8 @@ func BenchmarkRungeKutta_Solve(b *testing.B) {
 		return y
 	}
 
-	rk4 := order2.RK4()
+	rks4 := order2.NewRungeKuttaSolver(order2.RK4())
 	for i := 0; i < b.N; i++ {
-		order2.Solve(rk4, eq, 0.0, 1.0, 1.0, 1.0, 100)
+		order2.Solve(rks4, eq, 0.0, 1.0, 1.0, 1.0, 100)
 	}
 }
