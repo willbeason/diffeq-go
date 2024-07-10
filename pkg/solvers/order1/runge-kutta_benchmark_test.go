@@ -40,3 +40,14 @@ func BenchmarkRungeKutta_Solve(b *testing.B) {
 		order1.Solve(rk4, eq, 0.0, 1.0, 1.0, 100)
 	}
 }
+
+func BenchmarkRungeKuttaInline_Solve(b *testing.B) {
+	var eq equations.FirstOrder = func(t, y float64) float64 {
+		return y
+	}
+
+	rk4 := order1.RungeKuttaInline{}
+	for i := 0; i < b.N; i++ {
+		order1.Solve(rk4, eq, 0.0, 1.0, 1.0, 100)
+	}
+}

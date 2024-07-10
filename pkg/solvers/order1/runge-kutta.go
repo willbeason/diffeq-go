@@ -17,7 +17,7 @@ type RungeKuttaStep struct {
 	// calculation.
 	Weight float64
 
-	// Node is the fraction of a the estimated time step forward to be estimated.
+	// Node is the fraction of the estimated time step forward to be estimated.
 	Node float64
 
 	// Coefficients are the weights of previous steps to include.
@@ -25,11 +25,6 @@ type RungeKuttaStep struct {
 }
 
 func Step(b, c float64, coefficients ...float64) RungeKuttaStep {
-	sumCoefficients := 0.0
-	for _, w := range coefficients {
-		sumCoefficients += w
-	}
-
 	return RungeKuttaStep{
 		Weight:       b,
 		Node:         c,
